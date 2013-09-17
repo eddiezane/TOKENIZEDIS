@@ -5,10 +5,10 @@ void printHelp() {
   printf("HALP !!\n");
 }
 
-char handleSpec(char *s) {
+char *handleSpec(char *s) {
   switch (*(s+1)) {
     case 'n':
-      break;
+      return "\n";
 
     case 't':
       break;
@@ -32,8 +32,7 @@ char handleSpec(char *s) {
       break;
 
     case '\?':
-      break;
-
+      break; 
     case '\'':
       break;
 
@@ -52,12 +51,13 @@ char handleSpec(char *s) {
   return '\0';
 }
 
+/* is c a delim */
 int isDelim(char c, char *delims) {
-  int i;
 
-  for (i = 0; i < strlen(delims); i++) {
-    if (c == delims[i])
+  while (*delims != '\0') {
+    if (c == *delims)
       return 1;
+    delims++;
   }
   return 0;
 }

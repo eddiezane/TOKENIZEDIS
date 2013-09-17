@@ -36,8 +36,13 @@ typedef struct TokenizerT_ TokenizerT;
 TokenizerT *TKCreate(char *separators, char *ts) {
   TokenizerT *tk = malloc(sizeof(TokenizerT));
 
+  //shouldn't change....
   tk -> full = strdup(ts);
+
+  //changes with tkgetnexttoken
   tk -> curr = tk -> full;
+
+  //doesn't change
   tk -> delims = strdup(separators);
 
   return tk;
@@ -69,22 +74,24 @@ void TKDestroy(TokenizerT *tk) {
  */
 
 char *TKGetNextToken(TokenizerT *tk) {
-  int i;
-  char *buff;
+  char *buff, *c;
 
   buff = malloc(200);
 
-  for (i = 0; i < 200; i++) {
+  while (strlen(buff) < 200) {
 
     /* Are we at the end of the string */
-    if (*tk->curr == '\0') {
+    if (*(tk->curr) == '\0') {
+      if (strlen(buff) == 0) {
+        free(buff);
+        return 0;
+      }
       return buff;
     }
 
     /* Is this an escape character */
     else if (*tk->curr == '\\') {
-      handleSpec(tk->curr);
-      //TODO
+      c = handleSpec(tk->curr); 
     }
 
     /* Is current char a delim? */
@@ -95,42 +102,10 @@ char *TKGetNextToken(TokenizerT *tk) {
 
     /* It must be a normal character */
     else {
-      strncat(buff, tk->curr, 1);
-    }
-    tk->curr++;
-  }
-
-  if (strcmp(buff, "") == 0) {
-    free(buff);
-    return TKGetNextToken(tk);
-  }
-  return buff;
-}
-
-
-char *TKGetNextToken2(TokenizerT *tk) {
-  char *buff;
-
-  buff = calloc(200, 0);
-
-  for (; tk->curr != '\0'; tk->curr++) {
-
-    /* Is this an escape character */
-    if (*tk->curr == '\\') {
-      handleSpec(tk->curr);
-      //TODO
+      c = (tk->curr);
     }
 
-    /* Is current char a delim? */
-    if (isDelim(*(tk->curr), tk->delims)) {
-      tk->curr++;
-      break;
-    }
-
-    /* It must be a normal character */
-    else {
-      strncat(buff, tk->curr, 1);
-    }
+    strncat(buff, c, 1);
     tk->curr++;
   }
 
@@ -151,6 +126,7 @@ char *TKGetNextToken2(TokenizerT *tk) {
 
 int main(int argc, char **argv) {
   TokenizerT *tok;
+  int i;
   char *t;
 
   if (argc != 3) {
@@ -160,8 +136,14 @@ int main(int argc, char **argv) {
 
   tok = TKCreate(argv[1], argv[2]);
 
-  while (strcmp(t = TKGetNextToken(tok), "") != 0) {
-    printf("%s\n", t);
+  while ((t  = TKGetNextToken(tok))) {
+    for(i = 0; i < strlen(t); i++) {
+      if ( t[i] == '\n') 
+        printf("[0x%.2x]", t[i]);
+      else 
+        printf("%c", t[i]);
+    }
+    printf("\n");
   }
 
   TKDestroy(tok);

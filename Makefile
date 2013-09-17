@@ -3,3 +3,6 @@ default:
 
 clean:
 	rm tokenizer
+
+test:
+	./tokenizer " " "hello world"

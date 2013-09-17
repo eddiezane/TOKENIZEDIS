@@ -2,7 +2,7 @@
 #define UTILS_H
 
 void printHelp();
-char handleSpec(char *);
+char *handleSpec(char *);
 int  isDelim(char, char *);
 
 #endif
