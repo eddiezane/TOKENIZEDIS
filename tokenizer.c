@@ -76,6 +76,7 @@ void TKDestroy(TokenizerT *tk) {
 char *TKGetNextToken(TokenizerT *tk) {
   char *buff, *c;
 
+  c = malloc(1);
   buff = malloc(200);
 
   while (strlen(buff) < 200) {
@@ -91,7 +92,8 @@ char *TKGetNextToken(TokenizerT *tk) {
 
     /* Is this an escape character */
     else if (*tk->curr == '\\') {
-      c = handleSpec(tk->curr); 
+      if (handleSpec(c, tk->curr))
+        tk->curr++;
     }
 
     /* Is current char a delim? */
@@ -102,7 +104,7 @@ char *TKGetNextToken(TokenizerT *tk) {
 
     /* It must be a normal character */
     else {
-      c = (tk->curr);
+      strncpy(c, tk->curr, 1);
     }
 
     strncat(buff, c, 1);

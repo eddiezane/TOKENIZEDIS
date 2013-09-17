@@ -5,10 +5,11 @@ void printHelp() {
   printf("HALP !!\n");
 }
 
-char *handleSpec(char *s) {
+int handleSpec(char *c, char *s) {
   switch (*(s+1)) {
     case 'n':
-      return "\n";
+      strcpy(c, "\n");
+      return 1;
 
     case 't':
       break;
