@@ -61,10 +61,10 @@ int handleSpec(char *c, char *s) {
       return 1;
       break;
 
-    case '0':
-      strcpy(c, "\0");
-      return 1;
-      break;
+    /* case '0': */
+      /* strcpy(c, "\0"); */
+      /* return 1; */
+      /* break; */
 
     /* case 'x': */
       /* strcpy(c, "\x"); */
@@ -75,6 +75,33 @@ int handleSpec(char *c, char *s) {
       break;
   }
   return '\0';
+}
+
+int isSpec(char c) {
+  if(c == '\n')
+    return 1;
+  if (c == '\t')
+    return 1;
+  if (c == '\v')
+    return 1;
+  if (c == '\b')
+    return 1;
+  if (c == '\r')
+    return 1;
+  if (c == '\f')
+    return 1;
+  if (c == '\a')
+    return 1;
+  if (c == '\\')
+    return 1;
+  if (c == '\?')
+    return 1;
+  if (c == '\'')
+    return 1;
+  if (c == '\"')
+    return 1;
+  else
+    return 0;
 }
 
 /* is c a delim */

@@ -140,7 +140,7 @@ int main(int argc, char **argv) {
 
   while ((t  = TKGetNextToken(tok))) {
     for(i = 0; i < strlen(t); i++) {
-      if ( t[i] == '\n') 
+      if (isSpec(t[i])) 
         printf("[0x%.2x]", t[i]);
       else 
         printf("%c", t[i]);
