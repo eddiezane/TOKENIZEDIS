@@ -37,7 +37,6 @@ TokenizerT *TKCreate(char *separators, char *ts) {
   TokenizerT *tk = malloc(sizeof(TokenizerT));
 
   char *c = malloc(2);
-  int i;
 
   //shouldn't change....
   tk -> full = strdup(ts);
@@ -45,14 +44,22 @@ TokenizerT *TKCreate(char *separators, char *ts) {
   //changes with tkgetnexttoken
   tk -> curr = tk -> full;
 
+  //shouldn't change after this function
   tk -> delims = malloc(200);
-  while (*separators == '\0') {
-    if (*separators == '\\') {
-      if (handleSpec(c, separators)) {
 
-      }
+  for (; *separators != '\0'; separators++) {
+    if (*separators == '\\') {
+      if (handleSpec(c, separators))
+        separators++;
     }
+
+    else {
+      strncpy(c, separators, 1);
+    }
+
+    strncat(tk->delims, c, 1);
   }
+
 
   return tk;
 }
