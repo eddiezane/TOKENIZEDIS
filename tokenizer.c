@@ -36,14 +36,23 @@ typedef struct TokenizerT_ TokenizerT;
 TokenizerT *TKCreate(char *separators, char *ts) {
   TokenizerT *tk = malloc(sizeof(TokenizerT));
 
+  char *c = malloc(2);
+  int i;
+
   //shouldn't change....
   tk -> full = strdup(ts);
 
   //changes with tkgetnexttoken
   tk -> curr = tk -> full;
 
-  //doesn't change
-  tk -> delims = strdup(separators);
+  tk -> delims = malloc(200);
+  while (*separators == '\0') {
+    if (*separators == '\\') {
+      if (handleSpec(c, separators)) {
+
+      }
+    }
+  }
 
   return tk;
 }
