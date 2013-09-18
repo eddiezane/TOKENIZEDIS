@@ -6,7 +6,6 @@ void printHelp() {
 }
 
 int handleSpec(char *c, char *s) {
-  argv[0];
 
   switch (*(s+1)) {
     case 'n':
