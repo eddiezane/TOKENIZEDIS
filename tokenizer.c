@@ -54,13 +54,15 @@ TokenizerT *TKCreate(char *separators, char *ts) {
     }
 
     else {
+      //copy current char to c
       strncpy(c, separators, 1);
     }
 
+    //copy c to tk->delims
     strncat(tk->delims, c, 1);
   }
 
-
+  free(c);
   return tk;
 }
 
@@ -90,10 +92,8 @@ void TKDestroy(TokenizerT *tk) {
  */
 
 char *TKGetNextToken(TokenizerT *tk) {
-  char *buff, *c;
-
-  c = malloc(1);
-  buff = malloc(200);
+  char *buff = malloc(200);
+  char *c = malloc(2);
 
   while (strlen(buff) < 200) {
 
