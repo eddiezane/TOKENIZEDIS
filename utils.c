@@ -26,9 +26,7 @@ char *formatString(char *s) {
     } else {
       *p = s[i];
     }
-
   }
-
   return ret;
 }
 
@@ -37,7 +35,14 @@ void printHelp() {
 }
 
 void printWord(char *w) {
-  printf("%s\n",w);
+  int i;
+
+  for (i = 0; i < strlen(w); i++) {
+    if (isSpec(w[i]))
+      printf("[0x%.2x]", w[i]);
+    else
+      printf("%s\n", w);  
+  }
 }
 
 char handleSpec(char spec) {
@@ -76,6 +81,33 @@ char handleSpec(char spec) {
       return '\"';
 
     default:
-      return 0;
+      return '\0';
   }
+}
+
+int isSpec(char c) {
+  if(c == '\n')
+    return 1;
+  if (c == '\t')
+    return 1;
+  if (c == '\v')
+    return 1;
+  if (c == '\b')
+    return 1;
+  if (c == '\r')
+    return 1;
+  if (c == '\f')
+    return 1;
+  if (c == '\a')
+    return 1;
+  if (c == '\\')
+    return 1;
+  if (c == '\?')
+    return 1;
+  if (c == '\'')
+    return 1;
+  if (c == '\"')
+    return 1;
+  else
+    return 0;
 }

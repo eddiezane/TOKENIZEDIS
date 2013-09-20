@@ -83,8 +83,8 @@ char *TKGetNextToken(TokenizerT *tok) {
   for (i = 0; strlen(tok->current); i++) {
     /* is a delim */
     if (tok->bv[(int)tok->current[i]]) {
-      tok->current = &tok->current[i + 1];
-      /* tok->current += i + 1; */ //TODO TRY LATER
+//      tok->current = &tok->current[i + 1]; //TODO
+        tok->current += i + 1;  //TODO TRY LATERh
       break;
     }
     nextTok[i] = tok->current[i];
@@ -109,14 +109,16 @@ int main(int argc, char **argv) {
 
   if (argc != 3) {
     printHelp();//TODO
+    return 1;
   }
 
   tok = TKCreate(argv[1], argv[2]);
 
-  while ((w = TKGetNextToken(tok))) {
+  while ((w = TKGetNextToken(tok)) != NULL) {
     printWord(w);//TODO
   }
 
+  TKDestroy(tok);
 
   return 0;
 }

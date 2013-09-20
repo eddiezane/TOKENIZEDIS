@@ -1,5 +1,5 @@
 default:
-	gcc -Wall -g utils.c tokenizer.c -o tokenizer
+	gcc -Wall utils.c tokenizer.c -o tokenizer
 
 clean:
 	rm tokenizer
