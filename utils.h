@@ -5,6 +5,7 @@
 void printHelp();
 void printWord(char *);
 
+char handleSpec(char);
 char *formatString(char *);
 
 #endif

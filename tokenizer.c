@@ -89,7 +89,10 @@ char *TKGetNextToken(TokenizerT *tok) {
     }
     nextTok[i] = tok->current[i];
   }
-  return nextTok;
+  if (strlen(nextTok) > 0)
+    return nextTok;
+
+  return NULL;
 }
 
 /*
@@ -110,7 +113,7 @@ int main(int argc, char **argv) {
 
   tok = TKCreate(argv[1], argv[2]);
 
-  while (w = TKGetNextToken != NULL){
+  while ((w = TKGetNextToken(tok))) {
     printWord(w);//TODO
   }
 
