@@ -41,8 +41,9 @@ void printWord(char *w) {
     if (isSpec(w[i]))
       printf("[0x%.2x]", w[i]);
     else
-      printf("%s\n", w);  
+      printf("%c", w[i]);  
   }
+  printf("\n");
 }
 
 char handleSpec(char spec) {
