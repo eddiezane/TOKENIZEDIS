@@ -83,8 +83,8 @@ char *TKGetNextToken(TokenizerT *tok) {
   for (i = 0; strlen(tok->current); i++) {
     /* is a delim */
     if (tok->bv[(int)tok->current[i]]) {
-//      tok->current = &tok->current[i + 1]; //TODO
-        tok->current += i + 1;  //TODO TRY LATERh
+//      tok->current = &tok->current[i + 1]; 
+        tok->current += i + 1; 
       break;
     }
     nextTok[i] = tok->current[i];
@@ -92,6 +92,12 @@ char *TKGetNextToken(TokenizerT *tok) {
   if (strlen(nextTok) > 0)
     return nextTok;
 
+  if (strlen(tok->current) > 0) {
+    free(nextTok);
+    return TKGetNextToken(tok);
+  }
+
+  free(nextTok);
   return NULL;
 }
 
