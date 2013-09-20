@@ -21,7 +21,7 @@ char *formatString(char *s) {
         *p = c;
         i++;
       } else {
-        *p = '\\';
+        p--;
       }
     } else {
       *p = s[i];
