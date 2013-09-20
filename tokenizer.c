@@ -86,14 +86,19 @@ char *TKGetNextToken(TokenizerT *tok) {
   for (; *tok->current != '\0'; tok->current++, p++) {
     if (tok->bv[(int)*tok->current]) {
       tok->current++;
-      return ret;
+      if (strlen(ret) != 0) {
+        return ret;
+      } else {
+        free(ret);
+        return TKGetNextToken(tok);
+      }
     } else {
       *p = *tok->current;
     }
   }
 
- if (strlen(ret) != 0) 
-  return ret;
+  if (strlen(ret) != 0) 
+    return ret;
 
   free(ret);
   return NULL;
