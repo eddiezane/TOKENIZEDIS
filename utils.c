@@ -44,6 +44,7 @@ void printWord(char *w) {
       printf("%c", w[i]);  
   }
   printf("\n");
+  free(w);
 }
 
 char handleSpec(char spec) {

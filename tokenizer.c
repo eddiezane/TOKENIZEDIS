@@ -43,10 +43,11 @@ TokenizerT *TKCreate(char *separators, char *ts) {
   tok->current = tok->fullString;
 
   tmp = formatString(separators);
-  
+
   tok->bv = calloc(128, 1);
   for (i = 0; i < strlen(tmp); i++) 
     tok->bv[(int)tmp[i]] = 1;
+  free(tmp);
 
   return tok;
 }
@@ -77,27 +78,24 @@ void TKDestroy(TokenizerT *tok) {
  */
 
 char *TKGetNextToken(TokenizerT *tok) {
-  int i;
-  char *nextTok = calloc(200, 1);
+  char *ret = calloc(200, 1);
+  char *p;
 
-  for (i = 0; strlen(tok->current); i++) {
-    /* is a delim */
-    if (tok->bv[(int)tok->current[i]]) {
-//      tok->current = &tok->current[i + 1]; 
-        tok->current += i + 1; 
-      break;
+  p = ret;
+
+  for (; *tok->current != '\0'; tok->current++, p++) {
+    if (tok->bv[(int)*tok->current]) {
+      tok->current++;
+      return ret;
+    } else {
+      *p = *tok->current;
     }
-    nextTok[i] = tok->current[i];
-  }
-  if (strlen(nextTok) > 0)
-    return nextTok;
-
-  if (strlen(tok->current) > 0) {
-    free(nextTok);
-    return TKGetNextToken(tok);
   }
 
-  free(nextTok);
+ if (strlen(ret) != 0) 
+  return ret;
+
+  free(ret);
   return NULL;
 }
 
