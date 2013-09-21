@@ -2,4 +2,8 @@
 " " "hello world" => "hello", "world"
 "\n" "hello\nworld" => "hello", "world"
 "\\" "foo\nbar" => "foo\nbar"
+" " "\"" => [0x22]
+"\t" "yo \tdawg" => "yo ", "dawg" 
+"fg" "IfLikegTurtles" => "I", "Like", "Turtles"
+"da" "IfLikegTurtles\a\t" => "IfLikegTurtles[0x07][0x09]"
 
