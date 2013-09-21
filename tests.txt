@@ -1,0 +1,5 @@
+"" "hello world" => "hello world"
+" " "hello world" => "hello", "world"
+"\n" "hello\nworld" => "hello", "world"
+"\\" "foo\nbar" => "foo\nbar"
+

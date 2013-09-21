@@ -30,8 +30,11 @@ char *formatString(char *s) {
   return ret;
 }
 
-void printHelp() {
-  printf("HELP\n");
+void printHelp(int argc) {
+  if (argc < 3)
+    printf("YOU MESSED UP: TOO FEW ARGUMENTS!\n");
+  else
+    printf("YOU MESSED UP: TOO MANY ARGUMENTS!\n");
 }
 
 void printWord(char *w) {
